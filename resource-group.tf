@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "r_group" {
-    name = "${var.prefix}"
+    name = "${terraform.workspace}"
     location = "uksouth"
 }
 

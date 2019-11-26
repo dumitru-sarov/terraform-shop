@@ -1,7 +1,7 @@
 resource "azurerm_virtual_machine" "front-end" {
     name = "${var.prefix}-front-vm"
-    resource_group_name = "${azurerm_resource_group.r_group.name}"
-    location = "${azurerm_resource_group.r_group.location}"
+    resource_group_name = "${var.resource_group.name}"
+    location = "${var.resource_group.location}"
     network_interface_ids = ["${azurerm_network_interface.front_end_nic.id}"]
     vm_size = "Standard_DS1_v2"
 

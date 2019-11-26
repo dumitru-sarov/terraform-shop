@@ -5,3 +5,6 @@ variable "prefix" {
 variable "admin" {
     default = "dumitru"
 }
+
+variable "resource_group" {  
+}
