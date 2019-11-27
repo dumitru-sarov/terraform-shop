@@ -27,6 +27,7 @@ resource "azurerm_virtual_machine" "front-end" {
     
     }
 
+    # Remote connection
     os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
@@ -35,18 +36,20 @@ resource "azurerm_virtual_machine" "front-end" {
         }
     }
 
-    # connection {
-	# 	type = "ssh"
-	# 	user = "${var.admin}"
-	# 	private_key = "${file("/home/user/.ssh/id_rsa")}"
-	# 	host = "${azurerm_public_ip."
-  	# }
+    # My connection 
+    connection {
+		type = "ssh"
+		user = "${var.admin}"
+		private_key = "${file("/home/user/.ssh/id_rsa")}"
+		host = azurerm_public_ip.apache2.fqdn
+  	}
 
-    # provisioner "remote-exec" {
-    #     inline = [
-    #         "sudo apt update",
-    #         "sudo apt install apache2"
-    #     ]
-    # }
+    # Executes commands after ssh
+    provisioner "remote-exec" {
+        inline = [
+            "sudo apt update",
+            "sudo apt install -y apache2" # gets stucked if it wait for an option, -y is needed.
+        ]
+    }
 }
 

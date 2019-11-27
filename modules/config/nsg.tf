@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "front_nsg" {
     name                = "front-nsg"
-    location            = "${var.resource_group.location}"
-    resource_group_name = "${var.resource_group.name}"
+    location            = var.resource_group.location
+    resource_group_name = var.resource_group.name
     
     security_rule {
         name                       = "SSH"
@@ -40,8 +40,8 @@ resource "azurerm_network_security_group" "front_nsg" {
 
 resource "azurerm_network_security_group" "back_nsg" {
     name                = "back-nsg"
-    location            = "${var.resource_group.location}"
-    resource_group_name = "${var.resource_group.name}"
+    location            = var.resource_group.location
+    resource_group_name = var.resource_group.name
     
     security_rule {
         name                       = "SSH"
@@ -58,8 +58,8 @@ resource "azurerm_network_security_group" "back_nsg" {
 
 resource "azurerm_network_security_group" "manager_nsg" {
     name                = "manager-nsg"
-    location            = "${var.resource_group.location}"
-    resource_group_name = "${var.resource_group.name}"
+    location            = var.resource_group.location
+    resource_group_name = var.resource_group.name
     
     security_rule {
         name                       = "SSH"
