@@ -12,7 +12,7 @@ resource "azurerm_subnet" "back_net" {
     address_prefix = "10.0.2.0/24"
 }
 
-resource "azurerm_subnet" "manager" {
+resource "azurerm_subnet" "manager_net" {
     name = "manager"
     resource_group_name = var.resource_group.name
     virtual_network_name = var.virtual_network.name

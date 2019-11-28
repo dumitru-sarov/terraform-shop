@@ -1,0 +1,8 @@
+[hosts]
+51.145.52.97
+51.145.52.205
+
+[hosts:vars]
+ansible_user=dumitru
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'
+ansible_ssh_private_key_file=~/.ssh/id_rsa
