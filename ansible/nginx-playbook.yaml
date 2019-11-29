@@ -1,0 +1,13 @@
+---
+  - hosts : 51.143.136.96
+    become: true
+    tasks:
+      - name: Install NGINX # any name
+        apt:
+          name: nginx  # package names as per ubuntu installation
+          state: latest
+          update_cache: true
+      - name: Start NGINX Service
+        service:
+          name: nginx
+          state: started

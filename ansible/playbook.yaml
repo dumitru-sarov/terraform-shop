@@ -1,13 +1,62 @@
 ---
-  - hosts: hosts
+  - hosts: default-dumitru-sarov.uksouth.cloudapp.azure.com
     become: true
     tasks:
-      - name: Install NGINX
+      - name: depencency repo
+        apt_repository:
+          repo: "deb http://deb.debian.org/debian stretch-backports main"
+          state: present
+      - name: install nginx & certbot
         apt:
-          name: nginx
+          name:
+            - certbot
+            - python-certbot-nginx
+            - nginx
+          default_release: stretch-backports
           state: latest
           update_cache: true
       - name: Start NGINX Service
         service:
           name: nginx
+          state: started
+      - name: check for certificates
+        stat:
+          path: /etc/letsencrypt/live/{{ inventory_hostname }}/fullchain.pem
+        register: certificate
+      - name: configure TLS
+        shell: "certbot certonly --nginx -n --agree-tos --email test@gmail.com --domains '{{ inventory_hostname }}'"
+        when: certificate.stat.exists == False
+      - name: Copy nginx.conf file
+        template: 
+          src: /home/user/Desktop/terraform-shop/ansible/resources/nginx.conf
+          dest: /etc/nginx/nginx.conf
+      - name: Reload Nginx Service
+        service:
+          name: nginx
+          state: reloaded
+  - hosts: 51.140.162.76
+    become: true
+    tasks:
+      - name: Install JAVA
+        apt:
+          name: openjdk-8-jdk
+          state: latest
+          update_cache: true
+      - name: Add Jenkins repo key
+        apt_key:
+          url: "https://pkg.jenkins.io/debian/jenkins-ci.org.key"
+          state: present
+      - name: Add Jenkins repo
+        apt_repository:
+          repo: "deb http://pkg.jenkins.io/debian-stable binary/"
+          state: present
+          # update_cache: true
+      - name: Install Jenkins
+        apt:
+          name: jenkins
+          state: present
+          # update_cache: true
+      - name: Start Jenkins
+        service:
+          name: jenkins
           state: started

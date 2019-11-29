@@ -1,6 +1,6 @@
 [hosts]
-51.145.52.97
-51.145.52.205
+51.143.136.96
+default-dumitru-sarov.uksouth.cloudapp.azure.com
 
 [hosts:vars]
 ansible_user=dumitru

@@ -9,7 +9,7 @@ resource "azurerm_network_interface" "front_end_nic" {
     name                          = "testconfiguration1"
     subnet_id                     = azurerm_subnet.front_net.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.apache2.id
+    public_ip_address_id          = azurerm_public_ip.nginx.id
   }
 }
 
@@ -24,6 +24,6 @@ resource "azurerm_network_interface" "manager_nic" {
     name                          = "testconfiguration2"
     subnet_id                     = azurerm_subnet.manager_net.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.manager_ip.id
+    public_ip_address_id          = azurerm_public_ip.jenkins.id
   }
 }
