@@ -9,7 +9,7 @@
       - name: install nginx & certbot
         apt:
           name:
-            - certbot
+            - certbot3
             - python-certbot-nginx
             - nginx
           default_release: stretch-backports
@@ -60,3 +60,4 @@
         service:
           name: jenkins
           state: started
+

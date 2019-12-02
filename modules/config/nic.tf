@@ -27,3 +27,18 @@ resource "azurerm_network_interface" "manager_nic" {
     public_ip_address_id          = azurerm_public_ip.jenkins.id
   }
 }
+
+resource "azurerm_network_interface" "back_nic" {
+  name                = "${var.prefix}-manager"
+  location            = var.resource_group.location
+  resource_group_name = var.resource_group.name
+  network_security_group_id = azurerm_network_security_group.back_nsg.id
+
+
+  ip_configuration {
+    name                          = "testconfiguration3"
+    subnet_id                     = azurerm_subnet.back_net.id
+    private_ip_address_allocation = "Dynamic"
+  }
+}
+
